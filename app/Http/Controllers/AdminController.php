@@ -55,7 +55,7 @@ class AdminController extends Controller
 //        Auth::login($user);
 
         // ide kell majd vmi message-es oldal
-        return redirect()->intended('admin/dashboard');
+        return redirect()->intended('admin/regform')->with('message', 'User Stored!');
     }
 
 }

@@ -1,10 +1,18 @@
 <x-app-layout>
     <div class="col-span-6 max-w-7xl sm:px-6 lg:px-8">
         <div class="py-4">
+            @if(session('message'))
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100 items-center">
+                        <span class="text-center"> {{ session('message') }} </span>
+                    </div>
+                </div>
+                <br><br>
+            @endif
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
-                    <form method="POST" action="{{ route('admin.userreg') }}">
+                    <form method="POST" action="{{ route('admin.regform') }}">
                         @csrf
 
                         <!-- Name -->
