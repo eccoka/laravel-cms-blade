@@ -40,4 +40,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin/regform', [AdminController::class, 'storeUser'])->name('admin.regform');
     Route::get('/admin/profile', [ProfileController::class, 'editAdmin'])->name('adminprofile.edit');
     Route::patch('/admin/profile', [ProfileController::class, 'updateAdmin'])->name('adminprofile.update');
+    Route::get('/admin/userdata', [AdminController::class, 'showUsers'])->name('userdata.edit');
+    Route::patch('/admin/userdata', [AdminController::class, 'updateUsers'])->name('userdata.update');
 });
