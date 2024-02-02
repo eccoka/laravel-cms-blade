@@ -38,4 +38,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/regform', [AdminController::class, 'showRegForm'])->name('admin.regform');
     Route::post('/admin/regform', [AdminController::class, 'storeUser'])->name('admin.regform');
+    Route::get('/admin/profile', [ProfileController::class, 'editAdmin'])->name('adminprofile.edit');
+    Route::patch('/admin/profile', [ProfileController::class, 'updateAdmin'])->name('adminprofile.update');
 });

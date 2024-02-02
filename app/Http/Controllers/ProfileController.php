@@ -65,4 +65,25 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function editAdmin(Request $request): View
+    {
+        return view('admin.profile.edit', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    public function updateAdmin (ProfileUpdateRequest $request): RedirectResponse
+    {
+        $request->user()->fill($request->validated());
+
+
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
+        }
+
+        $request->user()->save();
+
+        return Redirect::route('adminprofile.edit')->with('status', 'profile-updated');
+    }
 }
