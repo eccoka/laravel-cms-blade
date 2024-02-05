@@ -43,3 +43,17 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/userdata', [AdminController::class, 'showUsers'])->name('userdata.edit');
     Route::patch('/admin/userdata', [AdminController::class, 'updateUsers'])->name('userdata.update');
 });
+
+Route::middleware(['auth', 'role:leader'])->group(function () {
+    Route::get('/leader/dashboard', [LeaderController::class, 'index'])->name('leader.dashboard');
+    Route::get('/leader/profile', [ProfileController::class, 'editLeader'])->name('leaderprofile.edit');
+    Route::patch('/leader/profile', [ProfileController::class, 'updateLeader'])->name('leaderprofile.update');
+    Route::delete('/leader/profile', [ProfileController::class, 'destroyLeader'])->name('leaderprofile.destroy');
+});
+
+Route::middleware(['auth', 'role:agent'])->group(function () {
+    Route::get('/agent/dashboard', [AgentController::class, 'index'])->name('agent.dashboard');
+    Route::get('/agent/profile', [ProfileController::class, 'editAgent'])->name('agentprofile.edit');
+    Route::patch('/agent/profile', [ProfileController::class, 'updateAgent'])->name('agentprofile.update');
+    Route::delete('/agent/profile', [ProfileController::class, 'destroyAgent'])->name('agentprofile.destroy');
+});

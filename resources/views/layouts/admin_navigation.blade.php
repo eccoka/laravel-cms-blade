@@ -24,10 +24,23 @@
                         </button>
                     </x-slot>
 
+                    <!-- Profil update by role-->
                     <x-slot name="content">
+                        @if( Auth::user()->role === 'admin')
                         <x-dropdown-link :href="route('adminprofile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
+                        @endif
+                        @if( Auth::user()->role === 'leader')
+                        <x-dropdown-link :href="route('leaderprofile.edit')">
+                            {{ __('Profile') }}
+                        </x-dropdown-link>
+                        @endif
+                        @if( Auth::user()->role === 'agent')
+                        <x-dropdown-link :href="route('agentprofile.edit')">
+                            {{ __('Profile') }}
+                        </x-dropdown-link>
+                        @endif
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">

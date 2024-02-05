@@ -88,5 +88,88 @@ class ProfileController extends Controller
         return Redirect::route('admin.profile.edit')->with('status', 'profile-updated');
     }
 
+    public function editLeader(Request $request): View
+    {
+        return view('leader.profile.edit', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    public function updateLeader (ProfileUpdateRequest $request): RedirectResponse
+    {
+        $request->user()->fill($request->validated());
+
+
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
+        }
+
+        $request->user()->save();
+
+        return Redirect::route('leaderprofile.edit')->with('status', 'profile-updated');
+    }
+    public function destroyLeader(Request $request): RedirectResponse
+    {
+        $request->validateWithBag('userDeletion', [
+            'password' => ['required', 'current_password'],
+        ]);
+
+        $request->user()->status = 'inactive';
+        $request->user()->save();
+
+//        $user = $request->user();
+
+        Auth::logout();
+
+//        $user->delete();
+
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return Redirect::to('/');
+    }
+
+    public function editAgent(Request $request): View
+    {
+        return view('agent.profile.edit', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    public function updateAgent(ProfileUpdateRequest $request): RedirectResponse
+    {
+        $request->user()->fill($request->validated());
+
+
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
+        }
+
+        $request->user()->save();
+
+        return Redirect::route('agentprofile.edit')->with('status', 'profile-updated');
+    }
+    public function destroyAgent(Request $request): RedirectResponse
+    {
+        $request->validateWithBag('userDeletion', [
+            'password' => ['required', 'current_password'],
+        ]);
+
+        $request->user()->status = 'inactive';
+        $request->user()->save();
+
+//        $user = $request->user();
+
+        Auth::logout();
+
+//        $user->delete();
+
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return Redirect::to('/');
+    }
 
 }

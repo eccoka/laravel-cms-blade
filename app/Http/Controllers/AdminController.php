@@ -80,6 +80,28 @@ class AdminController extends Controller
 
     public function updateUsers(Request $request): RedirectResponse
     {
+        $message = '';
+        $message1 = '';
+        $message2 = '';
+        $message3 = '';
+        $message4 = '';
+
+        $oldData = User::where('id', $request->id)
+                        ->first();
+
+        if ($oldData->username != $request->username){
+            $message1 = 'Username updated from ' . $oldData->username . ' to ' . $request->username . '.';
+        }
+        if ($oldData->role != $request->role){
+            $message2 = 'Role updated from ' . $oldData->role . ' to ' . $request->role . '.';
+        }
+        if ($oldData->status != $request->status){
+            $message3 = 'Status updated from ' .  $oldData->status . ' to ' . $request->status . '.';
+        }
+        if ($request->password != ''){
+            $message4 = 'Password updated!';
+        }
+
         $saveData = '';
         if (!$request->password) {
             $saveData = [
@@ -89,6 +111,7 @@ class AdminController extends Controller
             ];
         }
         else {
+
             $saveData = [
                 "username" => $request->username,
                 "role" => $request->role,
@@ -99,7 +122,9 @@ class AdminController extends Controller
 
         DB::table('users')->where('id', $request->id )->update($saveData);
 
-        return redirect()->intended('admin/userdata')->with('message', 'Updated ' . $request->username . ' ' . $request->role);
+        $message = $message1 . ' ' . $message2 . ' ' . $message3 . ' ' . $message4;
+
+        return redirect()->intended('admin/userdata')->with('message', $message);
     }
 
 }

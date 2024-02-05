@@ -15,7 +15,7 @@ class ProfileUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        if ($this->user()->role === 'customer') {
+        if ($this->user()->role !== 'admin') {
             return [
                 'username' => ['required', 'string', 'max:255'],
                 'first_name' => ['required', 'string', 'max:255'],
